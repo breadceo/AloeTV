@@ -3,7 +3,7 @@
     <b-img :src=this.video.snippet.thumbnails.high.url fluid-grow
      thumbnail alt="Responsive image" />
     <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{ this.video.snippet.localized.title }}</h5>
+        <h5 class="mb-1 text-truncate w-75">{{ this.video.snippet.localized.title }}</h5>
         <small class="text-muted">{{ this.ago }}</small>
     </div>
   </div>
