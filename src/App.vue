@@ -3,11 +3,11 @@
     <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
     <div class="fixed-top">
       <navbar-component></navbar-component>
-       <transition 
+       <transition
         name="custom-classes-transition"
         enter-active-class="animated fadeInDownBig"
       >
-        <video-player v-if="show" class="sticky-top"></video-player>
+        <video-player class="sticky-top"></video-player>
       </transition>
     </div>
     <div id="body">
@@ -27,11 +27,6 @@ export default {
   name: 'App',
   store,
   components: { NavbarComponent, VideoPlayer },
-  data: function data() {
-    return {
-      show: false,
-    };
-  },
 };
 
 if (module.hot) {

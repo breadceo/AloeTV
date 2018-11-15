@@ -1,5 +1,5 @@
 <template>
-  <div class="videocard">
+  <div class="videocard" v-on:click.stop="play(video.id)">
     <b-img :src=this.video.snippet.thumbnails.high.url fluid-grow
      thumbnail alt="Responsive image" />
     <div class="d-flex w-100 justify-content-between">
@@ -10,8 +10,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-// mapActions
+import { mapState, mapActions } from 'vuex';
 
 const moment = require('moment');
 const preciseDiff = require('moment-precise-range')(moment);
@@ -43,13 +42,10 @@ export default {
       return `${diff.seconds} seconds ago`;
     },
   },
-  // methods: mapActions(''
-  // }),
-  data() {
-    return {
-    };
-  },
-  created() {
+  methods: {
+    ...mapActions('videos', [
+      'play',
+    ]),
   },
 };
 </script>

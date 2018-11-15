@@ -1,6 +1,6 @@
 <template>
-    <div class="w-50 center-block">
-        <youtube video-id="6xJlnXOE_2o" :player-vars=this.opt :player-width=this.window.width/2
+    <div class="w-50 center-block" v-if="this.show">
+        <youtube :video-id="this.videoId" :player-vars=this.opt :player-width=this.window.width/2
         @ready="ready"
         @ended="ended"
         @playing="playing"
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   name: 'VideoPlayer',
@@ -28,9 +28,10 @@ export default {
       },
     };
   },
-  // computed: mapState({
-  //  videos: state => state.videos.all,
-  // }),,
+  computed: mapState({
+    videoId: state => state.videos.playingId,
+    show: state => state.videos.playingId !== '',
+  }),
   created() {
     window.addEventListener('resize', this.handleResize);
     this.handleResize();

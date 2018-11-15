@@ -2,6 +2,7 @@ import youtube from '../../api/youtube';
 
 const thisState = {
   all: [],
+  playingId: '',
 };
 
 const getters = {
@@ -13,11 +14,17 @@ const actions = {
     const videos = await youtube.fetchVideos();
     commit('setVideos', videos);
   },
+  play({ commit }, id) {
+    commit('setPlayingId', id);
+  },
 };
 
 const mutations = {
   setVideos(state, videos) {
     state.all = videos;
+  },
+  setPlayingId(state, id) {
+    state.playingId = id;
   },
 };
 

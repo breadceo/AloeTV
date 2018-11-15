@@ -12,13 +12,17 @@ const apiKey = 'AIzaSyAMyMZFjNns6Uu_RvuOJyVqQpfpKvh6sG0';
 
 export default {
   async fetchVideos() {
-    const prs = [];
-    database.forEach((id) => {
-      const pr = axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${id}&maxResults=1&key=${apiKey}`);
-      prs.push(pr);
-    });
-    const results = await Promise.all(prs);
-    return results.map(t => t.data.items[0]);
+    try {
+      const prs = [];
+      database.forEach((id) => {
+        const pr = axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${id}&maxResults=1&key=${apiKey}`);
+        prs.push(pr);
+      });
+      const results = await Promise.all(prs);
+      return results.map(t => t.data.items[0]);
+    } catch (err) {
+      throw err;
+    }
   },
 };
 
