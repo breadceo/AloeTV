@@ -1,12 +1,13 @@
 <template>
   <div id="app">
-    <div class="sticky-top">
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+    <div class="fixed-top">
       <navbar-component></navbar-component>
-       <transition
+       <transition 
         name="custom-classes-transition"
-        enter-active-class="animated fadeIn"
+        enter-active-class="animated fadeInDownBig"
       >
-        <video-player v-if="show"></video-player>
+        <video-player v-if="show" class="sticky-top"></video-player>
       </transition>
     </div>
     <div id="body">

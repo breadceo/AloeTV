@@ -1,6 +1,14 @@
 <template>
     <div class="w-50 center-block">
-        <youtube video-id="6xJlnXOE_2o" :player-width=this.window.width/2></youtube>
+        <youtube video-id="6xJlnXOE_2o" :player-vars=this.opt :player-width=this.window.width/2
+        @ready="ready"
+        @ended="ended"
+        @playing="playing"
+        @paused="paused"
+        @buffering="buffering"
+        @qued="qued"
+        @error="error"
+    ></youtube>
     </div>
 </template>
 
@@ -14,6 +22,9 @@ export default {
       window: {
         width: 0,
         height: 0,
+      },
+      opt: {
+        autoplay: 1,
       },
     };
   },
