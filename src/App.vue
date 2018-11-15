@@ -1,18 +1,36 @@
 <template>
   <div id="app">
-    <navbar-component></navbar-component>
-    <router-view/>
+    <div class="sticky-top">
+      <navbar-component></navbar-component>
+       <transition
+        name="custom-classes-transition"
+        enter-active-class="animated fadeIn"
+      >
+        <video-player v-if="show"></video-player>
+      </transition>
+    </div>
+    <div id="body">
+      <router-view/>
+    </div>
+    <div id="footer">
+    </div>
   </div>
 </template>
 
 <script>
 import NavbarComponent from './components/NavbarComponent';
+import VideoPlayer from './components/VideoPlayer';
 import store from './store';
 
 export default {
   name: 'App',
   store,
-  components: { NavbarComponent },
+  components: { NavbarComponent, VideoPlayer },
+  data: function data() {
+    return {
+      show: false,
+    };
+  },
 };
 
 if (module.hot) {
@@ -39,7 +57,6 @@ html {
   background-color:#343a40;
 }
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #ffffff;

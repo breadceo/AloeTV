@@ -7,6 +7,7 @@ import VueMomentJS from 'vue-momentjs';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import axios from 'axios';
+import VueYouTubeEmbed from 'vue-youtube-embed';
 
 import App from './App';
 import router from './router';
@@ -14,6 +15,7 @@ import router from './router';
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
 
+Vue.use(VueYouTubeEmbed);
 Vue.use(BootstrapVue);
 Vue.use(VueMomentJS, moment);
 
