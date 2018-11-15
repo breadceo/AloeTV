@@ -9,10 +9,9 @@ const getters = {
 };
 
 const actions = {
-  getAllVideos({ commit }) {
-    youtube.fetchVideos((videos) => {
-      commit('setVideos', videos);
-    });
+  async getAllVideos({ commit }) {
+    const videos = await youtube.fetchVideos();
+    commit('setVideos', videos);
   },
 };
 

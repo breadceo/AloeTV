@@ -18,7 +18,7 @@ const preciseDiff = require('moment-precise-range')(moment);
 
 export default {
   name: 'VideoCard',
-  props: ['video'],
+  props: { video: Object },
   computed: {
     ...mapState({
     }),
