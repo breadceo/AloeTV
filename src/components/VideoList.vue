@@ -14,11 +14,22 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+// mapActions
+
 export default {
   name: 'VideoList',
+  computed: mapState({
+    videos: state => state.videos.all,
+  }),
+  // methods: mapActions(''
+  // }),
   data() {
     return {
     };
+  },
+  created() {
+    this.$store.dispatch('videos/getAllVideos');
   },
 };
 </script>

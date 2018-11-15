@@ -17,11 +17,11 @@ export default {
 
 if (module.hot) {
   // accept actions and mutations as hot modules
-  module.hot.accept(['./store/modules/video'], () => {
+  module.hot.accept(['./store/modules/videos'], () => {
     /* eslint-disable global-require */
     // require the updated modules
     // have to add .default here due to babel 6 module output
-    const newVideo = require('./store/modules/video').default;
+    const newVideo = require('./store/modules/videos').default;
     // swap in the new modules and mutations
     store.hotUpdate({
       modules: {

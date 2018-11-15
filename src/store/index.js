@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createLogger from '../../src/plugins/logger';
-import videos from './modules/video';
+import videos from './modules/videos';
 
 Vue.use(Vuex);
 

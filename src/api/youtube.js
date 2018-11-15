@@ -58,7 +58,7 @@ const videos = [
 ];
 
 export default {
-  getVideos(cb) {
+  fetchVideos(cb) {
     setTimeout(() => cb(videos), 100);
   },
 };
