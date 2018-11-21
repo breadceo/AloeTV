@@ -1,6 +1,9 @@
 <template>
-    <div class="w-50 center-block" v-if="this.show">
-        <youtube :video-id="this.videoId" :player-vars=this.opt :player-width=this.window.width/2
+    <div v-if="this.show">
+        <youtube :video-id="this.videoId"
+        :player-vars=this.opt
+        :player-width=this.window.width
+        :player-height=this.window.height
         @ready="ready"
         @ended="ended"
         @playing="playing"
@@ -42,7 +45,7 @@ export default {
   methods: {
     handleResize() {
       this.window.width = window.innerWidth;
-      this.window.height = window.innerHeight;
+      this.window.height = this.window.width * 0.5625;
     },
   },
 };
@@ -50,8 +53,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.center-block {
-  margin-left: auto;
-  margin-right: auto;
-}
+
 </style>
