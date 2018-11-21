@@ -7,9 +7,6 @@
         @ready="ready"
         @ended="ended"
         @playing="playing"
-        @paused="paused"
-        @buffering="buffering"
-        @qued="qued"
         @error="error"
     ></youtube>
     </div>
@@ -45,7 +42,17 @@ export default {
   methods: {
     handleResize() {
       this.window.width = window.innerWidth;
+      // 0.5625 = 16/9
       this.window.height = this.window.width * 0.5625;
+    },
+    ready(event) {
+      this.player = event.target;
+    },
+    ended() {
+    },
+    error() {
+    },
+    playing() {
     },
   },
 };

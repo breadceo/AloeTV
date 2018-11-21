@@ -5,7 +5,7 @@
       <navbar-component></navbar-component>
        <transition
         name="custom-classes-transition"
-        enter-active-class="animated fadeInDownBig"
+        enter-active-class="animated fadeInUpBig"
       >
         <video-player class="sticky-top"></video-player>
       </transition>
