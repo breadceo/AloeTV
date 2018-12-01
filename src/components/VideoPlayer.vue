@@ -48,6 +48,9 @@ export default {
     ready(event) {
       this.player = event.target;
     },
+    play() {
+      this.player.playVideo();
+    },
     ended() {
     },
     error() {
