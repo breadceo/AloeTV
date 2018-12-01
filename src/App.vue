@@ -6,9 +6,8 @@
        <transition
         name="custom-classes-transition"
         enter-active-class="animated fadeInUpBig"
-        v-on:after-enter="afterEnterTransition"
       >
-        <video-player ref="videoPlayer" class="sticky-top"></video-player>
+        <video-player class="sticky-top"></video-player>
       </transition>
     </div>
     <div id="body">
@@ -28,11 +27,6 @@ export default {
   name: 'App',
   store,
   components: { NavbarComponent, VideoPlayer },
-  methods: {
-    afterEnterTransition: function afterEnterTransition() {
-      this.$refs.videoPlayer.play();
-    },
-  },
 };
 
 if (module.hot) {
