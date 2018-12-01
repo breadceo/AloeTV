@@ -25,6 +25,7 @@ export default {
       },
       opt: {
         autoplay: 1,
+        playsinline: 1,
       },
     };
   },
@@ -49,7 +50,7 @@ export default {
       this.player = event.target;
     },
     play() {
-      this.player.playVideo();
+      setTimeout(() => this.player.playVideo(), 200);
     },
     ended() {
     },
