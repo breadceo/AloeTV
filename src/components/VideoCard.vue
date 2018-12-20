@@ -82,12 +82,12 @@ export default {
   },
   watch: {
     playingId(prev, cur) {
-       if (prev === this.video.id) {
+      if (prev === this.video.id) {
         if (this.timerId !== undefined) {
           clearInterval(this.timerId);
         }
         this.lastWatchingTime = this.player.getCurrentTime();
-       }
+      }
     },
   },
 };
