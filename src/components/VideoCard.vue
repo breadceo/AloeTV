@@ -39,7 +39,6 @@ export default {
         imgHeight: 0,
       },
       opt: {
-        autoplay: 1,
         playsinline: 1,
       },
       player: undefined,
@@ -61,6 +60,9 @@ export default {
     ]),
     ready(event) {
       this.player = event.target;
+      setTimeout(() => {
+        this.player.playVideo();
+      });
     },
     ended() {
     },
