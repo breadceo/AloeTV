@@ -1,6 +1,7 @@
 <template>
   <div class="videolist">
-    <virtual-list :size="elementHeight" :remain="4" :bench="8" :onscroll="handleScroll" :debounce="300">
+    <virtual-list :size="elementHeight" :remain="4" :bench="8"
+    :onscroll="handleScroll" :debounce="300">
         <video-card v-for="(video, index) of videos" class="videolistitem" v-bind='{ video }'
         v-bind:index="index" v-bind:key="video.id" />
     </virtual-list>
@@ -27,8 +28,8 @@ export default {
       'play',
     ]),
     handleScroll: function handleScroll(event, data) {
-      let idx = Math.ceil(data.offset / this.$data.elementHeight);
-      var videoId = this.videos[idx].id;
+      const idx = Math.ceil(data.offset / this.$data.elementHeight);
+      const videoId = this.videos[idx].id;
       if (this.playingId !== videoId) {
         this.play(videoId);
       }
