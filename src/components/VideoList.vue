@@ -1,26 +1,30 @@
 <template>
   <div class="videolist">
-    <b-list-group>
-      <b-list-group-item class="flex-column videolistitem"
-      v-for="(video, index) in videos" v-bind:key="video.id" >
-        <video-card v-bind='{ video }' v-bind:index="index" v-bind:key="video.id" />
-      </b-list-group-item>
-    </b-list-group>
+    <virtual-list :size="328" :remain="4" :bench="8" :onscroll="handleScroll">
+        <video-card v-for="(video, index) of videos" class="videolistitem" v-bind='{ video }'
+        v-bind:index="index" v-bind:key="video.id" />
+    </virtual-list>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import virtualList from 'vue-virtual-scroll-list';
 import VideoCard from './VideoCard';
 
 export default {
   name: 'VideoList',
-  components: { VideoCard },
+  components: { VideoCard, 'virtual-list': virtualList },
   computed: mapState({
     videos: state => state.videos.all,
   }),
   created() {
     this.$store.dispatch('videos/getAllVideos');
+  },
+  methods: {
+    handleScroll: function handleScroll(event, data) {
+      console.log(event, data);
+    },
   },
 };
 </script>
