@@ -63,7 +63,7 @@ export default {
   },
   data: function data() {
     return {
-      elementHeight: 340,
+      elementHeight: 360,
       lastPageYOffset: undefined,
     };
   },
