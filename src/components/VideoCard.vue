@@ -48,11 +48,14 @@ export default {
       lastWatchingTime: 0,
     };
   },
+  created() {
+    window.addEventListener('resize', this.handleResize);
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize);
+  },
   mounted() {
-    this.size.width = this.$el.clientWidth;
-    const ratio = 360 / 480;
-    this.size.height = this.size.width * ratio;
-    this.size.imgHeight = this.size.height + 6.250;
+    this.handleResize();
   },
   computed: {
     ...mapState({
@@ -78,6 +81,12 @@ export default {
       this.timerId = setInterval(() => {
         this.watchingTimeAcc += 500;
       }, 500);
+    },
+    handleResize() {
+      this.size.width = this.$el.clientWidth;
+      const ratio = 360 / 480;
+      this.size.height = this.size.width * ratio;
+      this.size.imgHeight = this.size.height + 6.250;
     },
   },
   watch: {
