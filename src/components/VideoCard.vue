@@ -31,7 +31,7 @@ import { mapState, mapActions } from 'vuex';
 export default {
   name: 'VideoCard',
   props: { video: Object },
-  data: function data() {
+  data() {
     return {
       size: {
         width: 0,
@@ -39,9 +39,13 @@ export default {
         imgHeight: 0,
       },
       opt: {
+        // autoplay: 1, // 모바일 브라우저 (iOS) 에서 동작 x
         playsinline: 1,
       },
       player: undefined,
+      timerId: undefined,
+      watchingTimeAcc: 0,
+      lastWatchingTime: 0,
     };
   },
   mounted() {
@@ -52,6 +56,7 @@ export default {
   },
   computed: {
     ...mapState({
+      playingId: state => state.videos.playingId,
     }),
   },
   methods: {
@@ -61,6 +66,7 @@ export default {
     ready(event) {
       this.player = event.target;
       setTimeout(() => {
+        this.player.seekTo(this.lastWatchingTime);
         this.player.playVideo();
       });
     },
@@ -69,6 +75,19 @@ export default {
     error() {
     },
     playing() {
+      this.timerId = setInterval(() => {
+        this.watchingTimeAcc += 500;
+      }, 500);
+    },
+  },
+  watch: {
+    playingId(prev, cur) {
+       if (prev === this.video.id) {
+        if (this.timerId !== undefined) {
+          clearInterval(this.timerId);
+        }
+        this.lastWatchingTime = this.player.getCurrentTime();
+       }
     },
   },
 };
