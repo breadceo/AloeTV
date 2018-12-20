@@ -41,13 +41,13 @@ export default {
     getYOffsetDiff: function getYOffsetDiff() {
       if (this.$data.lastPageYOffset === undefined) {
         this.$data.lastPageYOffset = window.pageYOffset;
-        return false;
+        return 2;
       }
       const diff = window.pageYOffset - this.$data.lastPageYOffset;
       this.$data.lastPageYOffset = window.pageYOffset;
       return diff;
     },
-    handleScroll: function handleScroll() {
+    handleScroll() {
       const diff = this.getYOffsetDiff();
       if (Math.abs(diff) <= 1) {
         const sign = diff > 0 ? -1 : 1;
@@ -61,7 +61,7 @@ export default {
       }
     },
   },
-  data: function data() {
+  data() {
     return {
       elementHeight: 360,
       lastPageYOffset: undefined,
