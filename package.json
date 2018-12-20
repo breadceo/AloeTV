@@ -21,7 +21,7 @@
     "vue": "^2.5.2",
     "vue-momentjs": "^0.1.2",
     "vue-router": "^3.0.1",
-    "vue-virtual-scroll-list": "^1.2.8",
+    "vue-virtual-scroller": "^1.0.0-beta.2",
     "vue-youtube-embed": "^2.2.1",
     "vuex": "^3.0.1"
   },
