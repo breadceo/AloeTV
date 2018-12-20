@@ -3,7 +3,8 @@
     <RecycleScroller
     class="scroller"
     :items="videos"
-    :item-height="340">
+    :item-height="340"
+    :min-item-height="340">
       <div slot-scope='{ item, index }'>
         <video-card class="videolistitem" :video=item />
       </div>
