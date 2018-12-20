@@ -70,7 +70,7 @@ export default {
       this.player = event.target;
       setTimeout(() => {
         this.player.seekTo(this.lastWatchingTime);
-        this.player.playVideo();
+        // this.player.playVideo();
       });
     },
     ended() {
