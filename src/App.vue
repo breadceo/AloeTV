@@ -1,14 +1,6 @@
 <template>
   <div id="app">
-    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
-    <div class="fixed-top">
-      <navbar-component></navbar-component>
-       <transition
-        name="custom-classes-transition"
-        enter-active-class="animated fadeInUpBig"
-      >
-        <video-player class="sticky-top"></video-player>
-      </transition>
+    <div id="header">
     </div>
     <div id="body">
       <router-view/>
@@ -19,14 +11,11 @@
 </template>
 
 <script>
-import NavbarComponent from './components/NavbarComponent';
-import VideoPlayer from './components/VideoPlayer';
 import store from './store';
 
 export default {
   name: 'App',
   store,
-  components: { NavbarComponent, VideoPlayer },
 };
 
 if (module.hot) {
@@ -57,10 +46,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
   color: #ffffff;
   background-color:#343a40;
-}
-#body {
-  position: relative;
-  top: 56px;
 }
 </style>
 
