@@ -3,7 +3,7 @@
     <b-img :src=this.video.snippet.thumbnails.high.url fluid-grow
      thumbnail alt="Responsive image" />
     <div class="d-flex w-100 justify-content-between">
-        <h6 class="text-justify videocardtitle">{{ this.video.snippet.localized.title }}</h6>
+        <h6 class="videocardtitle">{{ this.video.snippet.localized.title }}</h6>
     </div>
   </div>
 </template>
