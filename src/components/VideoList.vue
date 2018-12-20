@@ -3,8 +3,9 @@
     <RecycleScroller
     class="scroller"
     :items="videos"
-    :item-height="340"
-    :min-item-height="340">
+    :item-height="elementHeight"
+    :min-item-height="elementHeight"
+    :buffer="10">
       <div slot-scope='{ item, index }'>
         <video-card class="videolistitem" :video=item />
       </div>
@@ -26,6 +27,10 @@ export default {
   }),
   created() {
     this.$store.dispatch('videos/getAllVideos');
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll);
   },
   mounted() {
   },
@@ -33,17 +38,32 @@ export default {
     ...mapActions('videos', [
       'play',
     ]),
-    // handleScroll: function handleScroll(event, data) {
-    //   const idx = Math.ceil(data.offset / this.$data.elementHeight);
-    //   const videoId = this.videos[idx].id;
-    //   if (this.playingId !== videoId) {
-    //     this.play(videoId);
-    //   }
-    // },
+    getYOffsetDiff: function getYOffsetDiff() {
+      if (this.$data.lastPageYOffset === undefined) {
+        this.$data.lastPageYOffset = window.pageYOffset;
+        return false;
+      }
+      const diff = window.pageYOffset - this.$data.lastPageYOffset;
+      this.$data.lastPageYOffset = window.pageYOffset;
+      return diff;
+    },
+    handleScroll: function handleScroll(event) {
+      var diff = this.getYOffsetDiff();
+      if (Math.abs(diff) <= 1) {
+        const sign = diff > 0 ? -1 : 1;
+        const buffer = sign * this.$data.elementHeight / 10;
+        const idx = Math.ceil((window.scrollY + buffer) / this.$data.elementHeight);
+        const videoId = this.videos[idx].id;
+        if (this.playingId !== videoId) {
+          this.play(videoId);
+        }
+      }
+    },
   },
   data: function data() {
     return {
       elementHeight: 340,
+      lastPageYOffset: undefined,
     };
   },
 };
