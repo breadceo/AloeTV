@@ -47,12 +47,13 @@ export default {
       this.$data.lastPageYOffset = window.pageYOffset;
       return diff;
     },
-    handleScroll: function handleScroll(event) {
-      var diff = this.getYOffsetDiff();
+    handleScroll: function handleScroll() {
+      const diff = this.getYOffsetDiff();
       if (Math.abs(diff) <= 1) {
         const sign = diff > 0 ? -1 : 1;
-        const buffer = sign * this.$data.elementHeight / 10;
-        const idx = Math.ceil((window.scrollY + buffer) / this.$data.elementHeight);
+        const buffer = this.$data.elementHeight / 10;
+        const offset = sign * buffer;
+        const idx = Math.ceil((window.scrollY + offset) / this.$data.elementHeight);
         const videoId = this.videos[idx].id;
         if (this.playingId !== videoId) {
           this.play(videoId);
