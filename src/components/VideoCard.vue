@@ -46,6 +46,7 @@ export default {
       timerId: undefined,
       watchingTimeAcc: 0,
       lastWatchingTime: 0,
+      fullscreenEntered: false,
     };
   },
   created() {
@@ -69,8 +70,12 @@ export default {
     ready(event) {
       this.player = event.target;
       this.player.mute();
+      this.registerFullscreenEvent();
+      // this.player.addEventListener('onStateChange', (arg) => {
+      //   console.log(this.player, 'onStateChange', arg);
+      // });
       setTimeout(() => {
-        if (this.lastWatchingTime !== undefined) {
+        if (this.lastWatchingTime) {
           this.player.seekTo(this.lastWatchingTime);
         }
         this.player.playVideo();
@@ -79,6 +84,24 @@ export default {
     ended() {
     },
     error() {
+    },
+    registerFullscreenEvent() {
+      const fullscreenevts = {
+        requestFullscreen: 'onfullscreenchange',
+        webkitRequestFullscreen: 'onwebkitfullscreenchange',
+        mozRequestFullScreen: 'onmozfullscreenchange',
+        msRequestFullscreen: 'onmsfullscreenchange',
+      };
+      for (const ev in fullscreenevts) {
+        if (this.player.a[ev]) {
+          this.player.a[fullscreenevts[ev]] = () => {
+            this.fullscreenEntered = !this.fullscreenEntered;
+            if (this.fullscreenEntered) {
+              this.player.unMute();
+            }
+          };
+        }
+      }
     },
     playing() {
       this.timerId = setInterval(() => {
@@ -95,10 +118,12 @@ export default {
   watch: {
     playingId(prev) {
       if (prev === this.video.id) {
-        if (this.timerId !== undefined) {
+        if (this.timerId) {
           clearInterval(this.timerId);
         }
-        this.lastWatchingTime = this.player.getCurrentTime();
+        if (this.player) {
+          this.lastWatchingTime = this.player.getCurrentTime();
+        }
       }
     },
   },
