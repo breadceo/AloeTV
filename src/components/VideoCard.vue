@@ -97,7 +97,6 @@ export default {
           this.player.a[fullscreenevts[ev]] = () => {
             this.fullscreenEntered = !this.fullscreenEntered;
             if (this.fullscreenEntered) {
-              alert('unmute');
               this.player.unMute();
             }
           };
