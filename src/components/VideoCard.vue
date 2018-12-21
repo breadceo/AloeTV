@@ -68,9 +68,12 @@ export default {
     ]),
     ready(event) {
       this.player = event.target;
+      this.player.mute();
       setTimeout(() => {
-        this.player.seekTo(this.lastWatchingTime);
-        // this.player.playVideo();
+        if (this.lastWatchingTime !== undefined) {
+          this.player.seekTo(this.lastWatchingTime);
+        }
+        this.player.playVideo();
       });
     },
     ended() {
