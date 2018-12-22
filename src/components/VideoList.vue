@@ -33,6 +33,7 @@ export default {
     window.removeEventListener('scroll', this.handleScroll);
   },
   mounted() {
+    this.$store.dispatch('logs/pageview', 'listvideo');
     this.$store.dispatch('videos/getAllVideos');
   },
   methods: {
