@@ -1,5 +1,5 @@
 <template>
-  <div class="videocard" v-on:click.stop="play(video.id)">
+  <div class="videocard" v-on:click.stop="play({ id: video.id, auto: false })">
     <b-img v-if="this.$store.state.videos.playingId !== video.id"
     :src=this.video.snippet.thumbnails.high.url
     :width=this.size.width
@@ -15,7 +15,6 @@
       :player-height=this.size.height
       @ready="ready"
       @ended="ended"
-      @playing="playing"
       @error="error"
       ></youtube>
     </div>
@@ -48,14 +47,17 @@ export default {
       lastWatchingTime: 0,
       fullscreenEntered: false,
       sentWatched: false,
+      playingByAuto: false,
     };
   },
-  created() {
-    window.addEventListener('resize', this.handleResize);
-  },
-  destroyed() {
-    window.removeEventListener('resize', this.handleResize);
-  },
+  // created() {
+  //   console.log('created');
+  //   window.addEventListener('resize', this.handleResize);
+  // },
+  // destroyed() {
+  //   console.log('destroyed');
+  //   window.removeEventListener('resize', this.handleResize);
+  // },
   mounted() {
     this.handleResize();
   },
@@ -69,12 +71,17 @@ export default {
       'play',
     ]),
     ready(event) {
+      this.playingByAuto = this.$store.state.videos.playingByAuto,
       this.player = event.target;
       this.player.mute();
       this.registerFullscreenEvent();
-      // this.player.addEventListener('onStateChange', (arg) => {
-      //   console.log(this.player, 'onStateChange', arg);
-      // });
+      this.player.addEventListener('onStateChange', (arg) => {
+        if (arg.data === 1) {
+          this.ytPlayerStart();
+        } else if (arg.data === 2) {
+          this.ytPlayerStop();
+        }
+      });
       setTimeout(() => {
         if (this.lastWatchingTime) {
           this.player.seekTo(this.lastWatchingTime);
@@ -104,7 +111,7 @@ export default {
         }
       }
     },
-    playing() {
+    ytPlayerStart() {
       this.timerId = setInterval(() => {
         this.watchingTimeAcc += 500;
         if (this.watchingTimeAcc > 15000) {
@@ -114,6 +121,18 @@ export default {
           this.sentWatched = true;
         }
       }, 500);
+      if (this.playingByAuto) {
+        this.$store.dispatch('logs/startPlayingByAuto', this.playingId);
+      } else {
+        this.$store.dispatch('logs/startPlayingByManual', this.playingId);
+      }
+      this.playingByAuto = false;
+    },
+    ytPlayerStop() {
+      if (this.timerId) {
+        clearInterval(this.timerId);
+      }
+      this.$store.dispatch('logs/stopPlayingByManual', this.playingId);
     },
     handleResize() {
       this.size.width = this.$el.clientWidth;
