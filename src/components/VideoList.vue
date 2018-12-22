@@ -57,7 +57,8 @@ export default {
         const offset = sign * buffer;
         const idx = Math.ceil((window.scrollY + offset) / this.$data.elementHeight);
         const videoId = this.videos[idx].id;
-        if (this.playingId !== videoId) {
+        if (videoId !== this.reqPlayingId && this.playingId !== videoId) {
+          this.reqPlayingId = videoId;
           this.$store.dispatch('logs/stopPlayingByAuto', this.playingId);
           this.play({ id: videoId, auto: true });
         }
@@ -68,7 +69,13 @@ export default {
     return {
       elementHeight: 360,
       lastPageYOffset: undefined,
+      reqPlayingId: undefined,
     };
+  },
+  watch: {
+    playingId(_, cur) {
+      this.reqPlayingId = cur;
+    },
   },
 };
 </script>
