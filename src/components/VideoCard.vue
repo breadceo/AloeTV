@@ -143,10 +143,10 @@ export default {
   },
   watch: {
     playingId(prev) {
+      if (this.timerId) {
+        clearInterval(this.timerId);
+      }
       if (prev === this.video.id) {
-        if (this.timerId) {
-          clearInterval(this.timerId);
-        }
         if (this.player) {
           this.lastWatchingTime = this.player.getCurrentTime();
         }
