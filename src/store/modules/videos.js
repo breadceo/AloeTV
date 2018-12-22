@@ -3,6 +3,7 @@ import youtube from '../../api/youtube';
 const thisState = {
   all: [],
   playingId: '',
+  playingByAuto: false,
 };
 
 const getters = {
@@ -14,8 +15,8 @@ const actions = {
     const videos = await youtube.fetchVideos();
     commit('setVideos', videos);
   },
-  play({ commit }, id) {
-    commit('setPlayingId', id);
+  play({ commit }, data) {
+    commit('setPlaying', data);
   },
 };
 
@@ -23,8 +24,9 @@ const mutations = {
   setVideos(state, videos) {
     state.all = videos;
   },
-  setPlayingId(state, id) {
+  setPlaying(state, { id, auto }) {
     state.playingId = id;
+    state.playingByAuto = auto;
   },
 };
 

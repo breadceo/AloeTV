@@ -58,7 +58,8 @@ export default {
         const idx = Math.ceil((window.scrollY + offset) / this.$data.elementHeight);
         const videoId = this.videos[idx].id;
         if (this.playingId !== videoId) {
-          this.play(videoId);
+          this.$store.dispatch('logs/stopPlayingByAuto', this.playingId);
+          this.play({ id: videoId, auto: true });
         }
       }
     },

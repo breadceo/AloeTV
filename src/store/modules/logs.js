@@ -2,6 +2,9 @@ import { DeviceUUID } from 'device-uuid';
 import request from 'superagent';
 
 const cid = new DeviceUUID().get();
+const tid = 'UA-131203377-1';
+const v = 1;
+const url = 'http://www.google-analytics.com/collect';
 
 const thisState = {
   watched: [],
@@ -12,17 +15,35 @@ const getters = {
 
 const actions = {
   async pageview(_, pageName) {
-    await request
-      .post('http://www.google-analytics.com/collect')
-      .query({ v: 1, tid: 'UA-131203377-1', cid, t: 'pageview', dp: `/${pageName}` });
+    await request.post(url)
+      .query({ v, tid, cid, t: 'pageview', dp: `/${pageName}` });
   },
   async watched({ state, commit }, videoId) {
     if (state.watched.includes(videoId) === false) {
       commit('addWatched', videoId);
-      await request
-        .post('http://www.google-analytics.com/collect')
-        .query({ v: 1, tid: 'UA-131203377-1', cid, t: 'pageview', dp: `/listvideo/${videoId}` });
+      await request.post(url)
+        .query({ v, tid, cid, t: 'pageview', dp: `/listvideo/${videoId}` });
     }
+  },
+  async startPlayingByAuto(_, videoId) {
+    console.log('startPlayingByAuto');
+    await request.post(url)
+      .query({ v, tid, cid, t: 'event', ec: 'video', ea: 'autoplay', el: videoId });
+  },
+  async startPlayingByManual(_, videoId) {
+    console.log('startPlayingByManual');
+    await request.post(url)
+      .query({ v, tid, cid, t: 'event', ec: 'video', ea: 'manualplay', el: videoId });
+  },
+  async stopPlayingByAuto(_, videoId) {
+    console.log('stopPlayingByAuto');
+    await request.post(url)
+      .query({ v, tid, cid, t: 'event', ec: 'video', ea: 'autostop', el: videoId });
+  },
+  async stopPlayingByManual(_, videoId) {
+    console.log('stopPlayingByManual');
+    await request.post(url)
+      .query({ v, tid, cid, t: 'event', ec: 'video', ea: 'manualstop', el: videoId });
   },
 };
 
