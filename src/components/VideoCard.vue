@@ -42,7 +42,6 @@ export default {
         playsinline: 1,
         rel: 0,
         modestbranding: 1,
-        showinfo: 0,
       },
       player: undefined,
       timerId: undefined,
@@ -53,14 +52,14 @@ export default {
       playingByAuto: false,
     };
   },
-  // created() {
-  //   console.log('created');
-  //   window.addEventListener('resize', this.handleResize);
-  // },
-  // destroyed() {
-  //   console.log('destroyed');
-  //   window.removeEventListener('resize', this.handleResize);
-  // },
+  created() {
+    // console.log('created');
+    window.addEventListener('resize', this.handleResize);
+  },
+  destroyed() {
+    // console.log('destroyed');
+    window.removeEventListener('resize', this.handleResize);
+  },
   mounted() {
     this.handleResize();
   },
