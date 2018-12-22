@@ -40,6 +40,9 @@ export default {
       opt: {
         // autoplay: 1, // 모바일 브라우저 (iOS) 에서 동작 x
         playsinline: 1,
+        rel: 0,
+        modestbranding: 1,
+        showinfo: 0,
       },
       player: undefined,
       timerId: undefined,
@@ -71,8 +74,9 @@ export default {
       'play',
     ]),
     ready(event) {
-      this.playingByAuto = this.$store.state.videos.playingByAuto,
+      this.playingByAuto = this.$store.state.videos.playingByAuto;
       this.player = event.target;
+      // console.log(this.player);
       this.player.mute();
       this.registerFullscreenEvent();
       this.player.addEventListener('onStateChange', (arg) => {
