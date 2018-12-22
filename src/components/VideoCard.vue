@@ -47,6 +47,7 @@ export default {
       watchingTimeAcc: 0,
       lastWatchingTime: 0,
       fullscreenEntered: false,
+      sentWatched: false,
     };
   },
   created() {
@@ -106,6 +107,12 @@ export default {
     playing() {
       this.timerId = setInterval(() => {
         this.watchingTimeAcc += 500;
+        if (this.watchingTimeAcc > 15000) {
+          if (this.sentWatched === false) {
+            this.$store.dispatch('logs/watched', this.video.id);
+          }
+          this.sentWatched = true;
+        }
       }, 500);
     },
     handleResize() {
