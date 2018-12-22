@@ -26,22 +26,18 @@ const actions = {
     }
   },
   async startPlayingByAuto(_, videoId) {
-    console.log('startPlayingByAuto');
     await request.post(url)
       .query({ v, tid, cid, t: 'event', ec: 'video', ea: 'autoplay', el: videoId });
   },
   async startPlayingByManual(_, videoId) {
-    console.log('startPlayingByManual');
     await request.post(url)
       .query({ v, tid, cid, t: 'event', ec: 'video', ea: 'manualplay', el: videoId });
   },
   async stopPlayingByAuto(_, videoId) {
-    console.log('stopPlayingByAuto');
     await request.post(url)
       .query({ v, tid, cid, t: 'event', ec: 'video', ea: 'autostop', el: videoId });
   },
   async stopPlayingByManual(_, videoId) {
-    console.log('stopPlayingByManual');
     await request.post(url)
       .query({ v, tid, cid, t: 'event', ec: 'video', ea: 'manualstop', el: videoId });
   },
